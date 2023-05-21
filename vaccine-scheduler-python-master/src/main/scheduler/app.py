@@ -1,4 +1,5 @@
 from flask import Flask
+from Scheduler import *
 
 app = Flask(__name__)
 
