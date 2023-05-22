@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient</title>
+</head>
+<body>
+  <p>
+    <h1> Hello, {{ username }}</h1>
+    <p> Login as: Patient</p>
+  </p>
+  <section>
+    <p> Your vaccine appointment is successfully scheduled! </p>
+    <br>
+    <p> Appointment ID : {{ query_reserve[0]['Id']}} </p>
+    <p> Caregiver : {{ caregiver }} </p>
+    <p> Vaccine type : {{ vaccine }} </p>
+    <p> Date : {{ date }} </p>
+</body>
+</html>

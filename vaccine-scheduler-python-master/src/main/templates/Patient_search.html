@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient</title>
+</head>
+<body>
+  <p>
+    <h1> Hello, {{ username }}</h1>
+    <p> Login as: Patient</p>
+  </p>
+  <section>
+    <p> Avaliability Search</p>
+    <br>
+    <form class="form" action="/user/search", method="POST">
+      <label for="date_input"> When would you like to have your vaccine
+        (Please input in mm-dd-yy format) :
+      </label>
+      <input type="text" name="patient_date" id="date_input" />
+      <br>
+      <button type="submit"> Submit </button>
+    </form>
+  </section>
+</body>
+</html>

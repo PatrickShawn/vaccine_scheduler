@@ -236,13 +236,13 @@ def search_caregiver_schedule(tokens):
     check_caregiver = "SELECT Username FROM Availabilities WHERE Time = %s ORDER BY Username ASC"
     try:
         cursor.execute(check_caregiver, d)
-        results = cursor.fetchall()
-        if len(results) == 0:
+        results_caregivers = cursor.fetchall()
+        if len(results_caregivers) == 0:
             print("No avaliable caregiver for this date")
         else:
             print("Selected date: {}".format(str(d)[:10]))
             print("Your select date have the following available caregivers:")
-            for row in results:
+            for row in results_caregivers:
                 print(row['Username'])
     except pymssql.Error as E:
         print("Error occurred when getting Caregivers")
@@ -263,13 +263,13 @@ def search_caregiver_schedule(tokens):
     check_vaccine = "SELECT * FROM Vaccines"
     try:
         cursor.execute(check_vaccine)
-        results = cursor.fetchall()
+        results_vaccine = cursor.fetchall()
         print()
-        if len(results) == 0:
+        if len(results_vaccine) == 0:
             print("No avaliable vaccine currently")
         else:
             print("Here are avaliable vaccines and its doses:")
-            for row in results:
+            for row in results_vaccine:
                print("{} : {} dose(s) available.".format(row['Name'], row['Doses']))
     except pymssql.Error as E:
         print("Error occurred when checking vaccines")
@@ -283,13 +283,13 @@ def search_caregiver_schedule(tokens):
         return
     finally:
         cm.close_connection()
-    return
+    return results_caregivers,results_vaccine
 
 
 def reserve(tokens):
     """
-    reserve <date> <vaccine>
-    Patient researves a vaccine appointment on a given date.
+    reserve <date> <vaccine> <caregiver>
+    Patient researves a vaccine appointment on a given date and caregiver.
     Return an appointment ID, assgined caregiver if success,
     or return error message.
     Part 2 Finished.
@@ -297,7 +297,7 @@ def reserve(tokens):
     global current_patient
     global current_caregiver
     # Check token and current user
-    if len(tokens) != 3:
+    if len(tokens) != 4:
         print("Invalid args. Please try again")
         return
     if current_patient is None and current_caregiver is None:
@@ -322,25 +322,28 @@ def reserve(tokens):
     results_caregiver = None
     results_vaccine = None
     vaccine = tokens[2]
+    caregiver = tokens[3]
     cm = ConnectionManager()
     conn = cm.create_connection()
     cursor = conn.cursor(as_dict=True)
-    check_caregiver = "SELECT Username FROM Availabilities WHERE Time = %s ORDER BY Username ASC"
+    check_caregiver = "SELECT * FROM Availabilities WHERE Time = %s \
+                       AND Username = %s"
     check_vaccine = "SELECT * FROM Vaccines WHERE Name = %s"
     try:
-        cursor.execute(check_caregiver, d)
+        cursor.execute(check_caregiver, (d, caregiver))
         results_caregiver = cursor.fetchall()
         cursor.execute(check_vaccine, vaccine)
         results_vaccine = cursor.fetchall()
         if len(results_caregiver) == 0:
-            print("No caregiver is available!")
+            print("Your selected caregiver is unavailable!")
+            print("Please try again!")
             return
         if len(results_vaccine) == 0:
             print("Sorry we currently do not have {} vaccine.".format(vaccine))
-            print("Please try again")
+            print("Please try again!")
             return
         if results_vaccine[0]['Doses'] == 0:
-            print("Not enough available doses!")
+            print("Sorry currently {} vaccine is out of stock now".format(vaccine))
             return
            # update Availabilities table
     except pymssql.Error as E:
@@ -356,7 +359,7 @@ def reserve(tokens):
     finally:
         cm.close_connection()
     # Assign caregiver, update availability, vaccine and insert into appointment
-    appointed_caregiver = results_caregiver[0]['Username']
+    appointed_caregiver = caregiver
     delete_availability = "DELETE FROM Availabilities WHERE Username = %s and Time = %s"
     decrease_dose = "UPDATE vaccines SET Doses = %d WHERE Name = %s"
     add_appointment = "INSERT INTO Appointments VALUES (%s, %s, %s, %s)"
@@ -372,7 +375,8 @@ def reserve(tokens):
         cursor.execute("SELECT Id FROM Appointments WHERE Time = %s \
                         AND Caregiver_name = %s AND Patient_name = %s \
                         AND Vaccine_name = %s", para)
-        appoint_id = cursor.fetchall()[0]['Id']
+        reserve_result = cursor.fetchall()
+        appoint_id = reserve_result[0]['Id']
     except pymssql.Error as E:
         print("Error occurred when updating tables")
         print("Please try again!")
@@ -385,7 +389,7 @@ def reserve(tokens):
     finally:
         cm.close_connection()
     print("Appointment ID: {}, Caregiver.name : {}".format(appoint_id, appointed_caregiver))
-    return
+    return reserve_result
 
 
 def upload_availability(tokens):
