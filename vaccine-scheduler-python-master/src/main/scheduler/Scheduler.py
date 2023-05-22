@@ -1,8 +1,8 @@
-from model.Vaccine import Vaccine
-from model.Caregiver import Caregiver
-from model.Patient import Patient
-from util.Util import Util
-from db.ConnectionManager import ConnectionManager
+from .model.Vaccine import Vaccine
+from .model.Caregiver import Caregiver
+from .model.Patient import Patient
+from .util.Util import Util
+from .db.ConnectionManager import ConnectionManager
 import pymssql
 import datetime
 

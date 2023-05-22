@@ -1,6 +1,6 @@
 import sys
 sys.path.append("../db/*")
-from db.ConnectionManager import ConnectionManager
+from ..db.ConnectionManager import ConnectionManager
 import pymssql
 
 
