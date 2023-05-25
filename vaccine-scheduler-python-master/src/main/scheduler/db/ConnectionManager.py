@@ -5,19 +5,19 @@ import os
 class ConnectionManager:
 
     def __init__(self):
-        # self.server_name = os.getenv("Server") + ".database.windows.net"
-        # self.db_name = os.getenv("DBName")
-        # self.user = os.getenv("UserID")
-        # self.password = os.getenv("Password")
-        # self.conn = None
-
-        # To avoid setting virtual environment variable, simplify by just hard
-        # coding the credentials.
-        self.server_name = "patrick-xiao" + ".database.windows.net"
-        self.db_name = "TCSS545"
-        self.user = "patrick"
-        self.password = "PATick1997"
+        self.server_name = os.getenv("Server") + ".database.windows.net"
+        self.db_name = os.getenv("DBName")
+        self.user = os.getenv("UserID")
+        self.password = os.getenv("Password")
         self.conn = None
+
+        # # To avoid setting virtual environment variable, simplify by just hard
+        # # coding the credentials.
+        # self.server_name = "patrick-xiao" + ".database.windows.net"
+        # self.db_name = "TCSS545"
+        # self.user = "patrick"
+        # self.password = "PATick1997"
+        # self.conn = None
 
     def create_connection(self):
         try:
