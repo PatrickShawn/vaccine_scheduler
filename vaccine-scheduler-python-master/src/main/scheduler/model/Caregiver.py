@@ -79,13 +79,13 @@ class Caregiver:
             if len(results) != 0:
                 print("Sorry you already have an assgiend appointment on {}".format(str(d)[:10]))
                 print("Availability loaded failed!")
-                return
+                return 0
             cursor.execute(check_exist, (d, self.username))
             results = cursor.fetchall()
             if len(results) != 0:
                 print("You already uploaded your avaliability on {}".format(str(d)[:10]))
                 print("Please try again!")
-                return
+                return 1
             cursor.execute(add_availability, (d, self.username))
             # you must call commit() to persist your data if you don't set autocommit to True
             conn.commit()
@@ -95,3 +95,4 @@ class Caregiver:
             raise
         finally:
             cm.close_connection()
+        return 2

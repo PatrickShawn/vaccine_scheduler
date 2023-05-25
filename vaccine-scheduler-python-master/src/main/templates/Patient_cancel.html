@@ -12,21 +12,23 @@
     <p> Login as: Patient</p>
   </p>
   <section>
-    <p> Your vaccine appointment is successfully scheduled! </p>
-    <br>
-    <p> Appointment ID : {{ query_reserve[0]['Id']}} </p>
-    <p> Caregiver : {{ caregiver }} </p>
-    <p> Vaccine type : {{ vaccine }} </p>
-    <p> Date : {{ date }} </p>
+    <p> Your your appointment with Id : {{ id }} is cancelled successfully. </p>
   </section>
   <section>
-    <form class="form" action="/", method="POST">
-      <input type="hidden" name="logout" id="patient_logout" />
-      <br>
-      <button type="submit"> Logout </button>
-    </form>
+    <h2> Your scheduled Appointments</h2>
+    {% if query|length == 0 %}
+    <P> No appointmented found. Please reserve first!</P>
+    {% else %}
+    <p> Here are you upcoming appointments: </p>
+    <br>
+    {% for entry in query %}
+    <p> Appointment ID : {{ entry['Id']}} </p>
+    <p> Caregiver : {{ entry['Caregiver_name'] }} </p>
+    <p> Vaccine type : {{ entry['Vaccine_name'] }} </p>
+    <p> Date : {{ entry['Time'] }} </p>
+    {% endfor %}
+    {% endif %}
   </section>
-  <br>
   <section>
     <form class="form" action="/user", method="GET">
       <input type="hidden" name="back" id="patient_back" />

@@ -4,35 +4,36 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Patient</title>
+  <title>Caregiver</title>
 </head>
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
-    <p> Login as: Patient</p>
+    <p> Login as: Caregiver</p>
   </p>
   <section>
-    <p> Avaliability Search</p>
+    <p> Upload your avaliability</p>
     <br>
-    <form class="form" action="/user/search", method="POST">
-      <label for="date_input"> When would you like to have your vaccine
+    <form class="form" action="/user/upload", method="POST">
+      <label for="date_input"> Please give your avaliable date
         (Please input in mm-dd-yy format) :
       </label>
-      <input type="text" name="patient_date" id="date_input" />
+      <input type="text" name="caregiver_date" id="caregiver_date_input" />
       <br>
       <button type="submit"> Submit </button>
     </form>
   </section>
   <br>
   <section>
-    <form class="form" action="/user/appointments", method="POST">
+    <form class="form" action="/user/caregiver_appointments", method="POST">
       <input type="hidden" name="appointments" id="patient_appointments" />
       <button type="submit"> Check your appointments </button>
     </form>
   </section>
+  <br>
   <section>
     <form class="form" action="/", method="POST">
-      <input type="hidden" name="logout" id="patient_logout" />
+      <input type="hidden" name="logout" id="caregiver_logout" />
       <br>
       <button type="submit"> Logout </button>
     </form>

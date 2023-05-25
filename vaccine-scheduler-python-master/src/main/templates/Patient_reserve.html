@@ -12,16 +12,15 @@
     <p> Login as: Patient</p>
   </p>
   <section>
+    {% if query_caregiver|length > 0%}
     <p> Here are avaliable caregivers for your chosen date: {{ date }} </p>
     <section>
       {% for entry in query_caregiver %}
       <p> {{ entry['Username'] }} </p>
       {% endfor %}
-
     </section>
-
-    <p>  Here are avaliable vaccine: </p>
     <section>
+      <p> Here are avaliable vaccine: </p>
       {% for entry in query_vaccine %}
       <p> {{ entry['Name'] }} : {{ entry['Doses'] }} doses </p>
       {% endfor %}
@@ -34,6 +33,20 @@
       <label for="caregiver_input"> Which caregiver would you like to meet:</label>
       <input type="text" name="patient_caregiver" id="caregiver_input" />
       <button type="submit"> Reserve </button>
+    </form>
+    {% else %}
+    <section>
+      <p> Sorry, no avaliable caregiver for your chosen date: {{ date }}</p>
+      <p> Please try a different date or wait for avaliability!</p>
+    </section>
+    {% endif %}
+  </section>
+  <br>
+  <section>
+    <form class="form" action="/user", method="GET">
+      <input type="hidden" name="back" id="patient_back" />
+      <br>
+      <button type="submit"> Back to search </button>
     </form>
   </section>
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caregiver</title>
+</head>
+<body>
+  <p>
+    <h1> Hello, {{ username }}</h1>
+    <p> Login as: Caregiver</p>
+  </p>
+  <section>
+    {% if result == 0 %}
+    <p> Sorry you already have an assgiend appointment on {{ date }}.</p>
+    {% elif result == 1 %}
+    <p> You already uploaded your avaliability on {{ date }}.</p>
+    {% else %}
+    <p> Your uploaded avaliability is confirmed on {{ date }}</p>
+    <br>
+    <p> You may add your vaccine doses if you provide more doses with you
+      new avaliability</p>
+    <form class="form" action="/user/upload/add_finish", method="POST">
+      <label for="add_name"> Added vaccine name:
+      </label>
+      <input type="text" name="vaccine" id="vaccine_name" />
+      <br>
+      <label for="add_doses"> Added vaccine doses:
+      </label>
+      <input type="text" name="doses" id="vaccine_doses" />
+      <br>
+      <button type="submit"> Submit </button>
+    </form>
+  </section>
+    {% endif %}
+  <br>
+  <section>
+    <form class="form" action="/user", method="GET">
+      <input type="hidden" name="back" id="caregiver_back" />
+      <br>
+      <button type="submit"> Back to upload </button>
+    </form>
+  </section>
+  <br>
+  <section>
+    <form class="form" action="/", method="POST">
+      <input type="hidden" name="logout" id="caregiver_logout" />
+      <br>
+      <button type="submit"> Logout </button>
+    </form>
+  </section>
+</body>
+</html>

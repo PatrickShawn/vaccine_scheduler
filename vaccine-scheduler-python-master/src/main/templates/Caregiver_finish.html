@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caregiver</title>
+</head>
+<body>
+  <p>
+    <h1> Hello, {{ username }}</h1>
+    <p> Login as: Caregiver</p>
+  </p>
+  <section>
+    <p> Your uploaded avaliability on {{ date }} is confirmed </p>
+    <br>
+    <p> Your added {{ doses }} of {{ vaccine }} is confirmed </p>
+  </section>
+  <section>
+    <p> Here are updated doses of vaccines: </p>
+    {% for entry in query %}
+    <p> {{ entry['Name'] }} : {{ entry['Doses'] }} doses </p>
+    {% endfor %}
+  </section>
+  <br>
+  <section>
+    <form class="form" action="/user", method="GET">
+      <input type="hidden" name="back" id="caregiver_back" />
+      <br>
+      <button type="submit"> Back to upload </button>
+    </form>
+  </section>
+  <br>
+  <section>
+    <form class="form" action="/", method="POST">
+      <input type="hidden" name="logout" id="caregiver_logout" />
+      <br>
+      <button type="submit"> Logout </button>
+    </form>
+  </section>
+
+</body>
+</html>

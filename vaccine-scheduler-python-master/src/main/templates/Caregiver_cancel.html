@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caregiver</title>
+</head>
+<body>
+  <p>
+    <h1> Hello, {{ username }}</h1>
+    <p> Login as: Caregiver</p>
+  </p>
+  <section>
+    <p> Your your appointment with Id : {{ id }} is cancelled successfully. </p>
+  </section>
+  <section>
+    <h2> Your scheduled Appointments</h2>
+    {% if query|length == 0 %}
+    <P> You haven't got any upcoming appointment with patients yet.</P>
+    <p> Please wait for your patients to make their reservation.</p>
+    {% else %}
+    <p> Here are you upcoming appointments: </p>
+    <br>
+    {% for entry in query %}
+    <p> Appointment ID : {{ entry['Id']}} </p>
+    <p> Patient : {{ entry['Patient_name'] }} </p>
+    <p> Vaccine type : {{ entry['Vaccine_name'] }} </p>
+    <p> Date : {{ entry['Time'] }} </p>
+    {% endfor %}
+    {% endif %}
+  </section>
+  <section>
+    <form class="form" action="/user", method="GET">
+      <input type="hidden" name="back" id="caregiver_back" />
+      <br>
+      <button type="submit"> Back to upload </button>
+    </form>
+  </section>
+</body>
+</html>

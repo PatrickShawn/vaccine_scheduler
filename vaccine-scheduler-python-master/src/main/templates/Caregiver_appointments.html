@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caregiver</title>
+</head>
+<body>
+  <p>
+    <h1> Hello, {{ username }}</h1>
+    <p> Login as: Caregiver</p>
+  </p>
+  <section>
+    <h2> Upcoming Appointments</h2>
+    {% if query|length == 0 %}
+    <P> You haven't got any upcoming appointment with patients yet.</P>
+    <p> Please wait for your patients to make their reservation.</p>
+    {% else %}
+    <p> Here are you upcoming appointments with Patients: </p>
+    <br>
+    {% for entry in query %}
+    <p> Appointment ID : {{ entry['Id']}} </p>
+    <p> Patient : {{ entry['Patient_name'] }} </p>
+    <p> Vaccine type : {{ entry['Vaccine_name'] }} </p>
+    <p> Date : {{ entry['Time'] }} </p>
+    <br>
+    {% endfor %}
+    {% endif %}
+
+    <h2> Uploaded Avaliability</h2>
+    {% if aval|length == 0 %}
+    <p> You currently don't have any avalibility in addition to your appointments.</p>
+    {% else %}
+    <p> Here are your uploaded avaliable dates in addition to your appointments :</p>
+    {% for entry in aval %}
+     {{ entry['Time'] }}
+    {% endfor %}
+    {% endif %}
+  </section>
+  {% if query|length != 0 %}
+  <section>
+    <h2> Cancel your appointments </h2>
+    <form class="form" action="/user/caregiver_cancel", method="POST">
+      <label for="caregiver_cancel"> Please input the appointment ID
+        you want to cancel:
+      </label>
+      <input type="text" name="cancel" id="caregiver_cancel" />
+      <br>
+      <button type="submit"> Cancel your appointment </button>
+    </form>
+  </section>
+  {% endif %}
+  <section>
+    <form class="form" action="/user", method="GET">
+      <input type="hidden" name="back" id="patient_back" />
+      <br>
+      <button type="submit"> Back to search </button>
+    </form>
+  </section>
+
+</body>
+</html>

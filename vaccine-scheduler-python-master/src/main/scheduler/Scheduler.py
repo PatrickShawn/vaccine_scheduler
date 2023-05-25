@@ -413,7 +413,7 @@ def upload_availability(tokens):
     year = int(date_tokens[2])
     try:
         d = datetime.date(year, month, day)
-        current_caregiver.upload_availability(d)
+        result = current_caregiver.upload_availability(d)
     except pymssql.Error as e:
         print("Upload Availability Failed")
         print("Db-Error:", e)
@@ -425,7 +425,7 @@ def upload_availability(tokens):
         print("Error occurred when uploading availability")
         print("Error:", e)
         return
-    return
+    return result
 
 
 def cancel(tokens):
@@ -544,6 +544,35 @@ def add_doses(tokens):
             return
     print("Doses updated!")
 
+    # Check updated vaccine table
+    cm = ConnectionManager()
+    conn = cm.create_connection()
+    cursor = conn.cursor(as_dict=True)
+    check_vaccine = "SELECT * FROM Vaccines"
+    try:
+        cursor.execute(check_vaccine)
+        results_vaccine = cursor.fetchall()
+        print()
+        if len(results_vaccine) == 0:
+            print("No avaliable vaccine currently")
+        else:
+            print("Here are avaliable vaccines and its doses:")
+            for row in results_vaccine:
+               print("{} : {} dose(s) available.".format(row['Name'], row['Doses']))
+    except pymssql.Error as E:
+        print("Error occurred when checking vaccines")
+        print("Please try again!")
+        print("Db-Error:", E)
+        quit()
+    except Exception as e:
+        print("Error occured when checking vaccines")
+        print("Please try again!")
+        print("Error:", e)
+        return
+    finally:
+        cm.close_connection()
+    return results_vaccine
+
 
 def show_appointments(tokens):
     '''
@@ -553,6 +582,7 @@ def show_appointments(tokens):
     '''
     global current_caregiver
     global current_patient
+    patient_appoint,caregiver_appoint,caregiver_aval = None, None, None
     if current_patient is None and current_caregiver is None:
         print("Please login first!")
         return
@@ -564,12 +594,12 @@ def show_appointments(tokens):
          cursor = conn.cursor(as_dict=True)
          try:
              cursor.execute(check_appoint, current_patient.username)
-             results = cursor.fetchall()
-             if len(results) == 0:
+             patient_appoint = cursor.fetchall()
+             if len(patient_appoint) == 0:
                  print("No appointmented found. Please try again!")
-                 return
+                #  return [], None,None
              else:
-                 for row in results:
+                 for row in patient_appoint:
                      print("Appointment ID: {}, Vaccine Name: {}, Date: {}, Caregiver Name: {}.".format(row['Id'], row['Vaccine_name'], row['Time'], row['Caregiver_name']))
          except pymssql.Error as E:
              print("Error occurred when checking appointments")
@@ -584,17 +614,20 @@ def show_appointments(tokens):
     elif current_caregiver is not None and current_patient is None:
          check_appoint = "SELECT Id, Vaccine_name, Time, Patient_name \
                          FROM Appointments WHERE Caregiver_name = %s ORDER BY Id ASC"
+         check_aval = "SELECT * FROM Availabilities WHERE Username = %s"
          cm = ConnectionManager()
          conn = cm.create_connection()
          cursor = conn.cursor(as_dict=True)
          try:
              cursor.execute(check_appoint, current_caregiver.username)
-             results = cursor.fetchall()
-             if len(results) == 0:
+             caregiver_appoint = cursor.fetchall()
+             cursor.execute(check_aval, current_caregiver.username)
+             caregiver_aval = cursor.fetchall()
+             if len(caregiver_appoint) == 0:
                  print("No appointmented found. Please try again!")
-                 return
+                #  return None,[],None
              else:
-                 for row in results:
+                 for row in caregiver_appoint:
                      print("Appointment ID: {}, Vaccine Name: {}, Date: {}, Patient Name: {}.".format(row['Id'], row['Vaccine_name'], row['Time'], row['Patient_name']))
          except pymssql.Error as E:
              print("Error occurred when checking appointments")
@@ -608,7 +641,7 @@ def show_appointments(tokens):
              cm.close_connection()
     else:
         print("You have login as both patient and caregiver. Please log out and try again!")
-    return
+    return patient_appoint,caregiver_appoint,caregiver_aval
 
 
 def logout(tokens):
