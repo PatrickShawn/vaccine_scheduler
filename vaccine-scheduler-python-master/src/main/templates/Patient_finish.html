@@ -5,14 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 </head>
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Patient</p>
   </p>
+  <br>
+  <br>
   <section>
-    <p> Your vaccine appointment is successfully scheduled! </p>
+    <h2> Your vaccine appointment is successfully scheduled! </h2>
     <br>
     <p> Appointment ID : {{ query_reserve[0]['Id']}} </p>
     <p> Caregiver : {{ caregiver }} </p>
@@ -25,9 +28,6 @@
       <br>
       <button type="submit"> Logout </button>
     </form>
-  </section>
-  <br>
-  <section>
     <form class="form" action="/user", method="GET">
       <input type="hidden" name="back" id="patient_back" />
       <br>

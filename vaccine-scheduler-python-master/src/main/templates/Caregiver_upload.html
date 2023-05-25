@@ -5,14 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caregiver</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 </head>
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Caregiver</p>
   </p>
+  <br>
+  <br>
   <section>
-    <p> Upload your avaliability</p>
+    <h2> Upload your avaliability</h2>
     <br>
     <form class="form" action="/user/upload", method="POST">
       <label for="date_input"> Please give your avaliable date
@@ -29,9 +32,6 @@
       <input type="hidden" name="appointments" id="patient_appointments" />
       <button type="submit"> Check your appointments </button>
     </form>
-  </section>
-  <br>
-  <section>
     <form class="form" action="/", method="POST">
       <input type="hidden" name="logout" id="caregiver_logout" />
       <br>

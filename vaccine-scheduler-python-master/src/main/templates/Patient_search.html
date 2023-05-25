@@ -5,16 +5,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 </head>
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Patient</p>
   </p>
+  <br>
+  <br>
   <section>
-    <p> Avaliability Search</p>
-    <br>
     <form class="form" action="/user/search", method="POST">
+      <h2> Avaliability Search</h2>
       <label for="date_input"> When would you like to have your vaccine
         (Please input in mm-dd-yy format) :
       </label>
@@ -23,17 +25,13 @@
       <button type="submit"> Submit </button>
     </form>
   </section>
-  <br>
   <section>
     <form class="form" action="/user/appointments", method="POST">
       <input type="hidden" name="appointments" id="patient_appointments" />
       <button type="submit"> Check your appointments </button>
     </form>
-  </section>
-  <section>
     <form class="form" action="/", method="POST">
       <input type="hidden" name="logout" id="patient_logout" />
-      <br>
       <button type="submit"> Logout </button>
     </form>
   </section>

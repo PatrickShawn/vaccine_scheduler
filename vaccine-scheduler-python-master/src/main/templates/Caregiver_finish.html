@@ -5,19 +5,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caregiver</title>
-</head>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Caregiver</p>
   </p>
+  <br>
+  <br>
   <section>
-    <p> Your uploaded avaliability on {{ date }} is confirmed </p>
+    <h2> Your uploaded avaliability on {{ date }} is confirmed </h2>
     <br>
-    <p> Your added {{ doses }} of {{ vaccine }} is confirmed </p>
+    <h2> Your added {{ doses }} dose(s) of {{ vaccine }} is confirmed </h2>
   </section>
   <section>
-    <p> Here are updated doses of vaccines: </p>
+    <h2> Here are updated doses of vaccines: </h2>
     {% for entry in query %}
     <p> {{ entry['Name'] }} : {{ entry['Doses'] }} doses </p>
     {% endfor %}
@@ -29,15 +31,11 @@
       <br>
       <button type="submit"> Back to upload </button>
     </form>
-  </section>
-  <br>
-  <section>
     <form class="form" action="/", method="POST">
       <input type="hidden" name="logout" id="caregiver_logout" />
       <br>
       <button type="submit"> Logout </button>
     </form>
   </section>
-
 </body>
 </html>

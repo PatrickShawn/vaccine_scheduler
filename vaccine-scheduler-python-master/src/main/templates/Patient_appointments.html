@@ -5,27 +5,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 </head>
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Patient</p>
   </p>
+  <br>
+  <br>
   <section>
     {% if query|length == 0 %}
-    <P> No appointmented found. Please reserve first!</P>
+    <h2> No appointmented found. Please reserve first!</h2>
     {% else %}
-    <p> Here are you upcoming appointments: </p>
+    <h2> Here are you upcoming appointments: </h2>
     <br>
     {% for entry in query %}
     <p> Appointment ID : {{ entry['Id']}} </p>
     <p> Caregiver : {{ entry['Caregiver_name'] }} </p>
     <p> Vaccine type : {{ entry['Vaccine_name'] }} </p>
     <p> Date : {{ entry['Time'] }} </p>
+    <br>
     {% endfor %}
     <section>
-      <h2> Cancel your appointments </h2>
       <form class="form" action="/user/appointments/cancel", method="POST">
+        <h2> Cancel your appointments </h2>
         <label for="patient_cancel"> Please input the appointment ID
           you want to cancel:
         </label>

@@ -5,17 +5,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 </head>
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Patient</p>
   </p>
+  <br>
+  <br>
   <section>
-    <p> Your your appointment with Id : {{ id }} is cancelled successfully. </p>
+    <h2> Your your appointment with Id {{ id }} is cancelled successfully. </h2>
   </section>
+  <br>
+  <br>
   <section>
-    <h2> Your scheduled Appointments</h2>
+    <h2> Your scheduled appointments</h2>
     {% if query|length == 0 %}
     <P> No appointmented found. Please reserve first!</P>
     {% else %}
@@ -26,6 +31,7 @@
     <p> Caregiver : {{ entry['Caregiver_name'] }} </p>
     <p> Vaccine type : {{ entry['Vaccine_name'] }} </p>
     <p> Date : {{ entry['Time'] }} </p>
+    <br>
     {% endfor %}
     {% endif %}
   </section>

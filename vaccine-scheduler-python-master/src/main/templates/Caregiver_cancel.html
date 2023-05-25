@@ -5,17 +5,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caregiver</title>
-</head>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Caregiver</p>
   </p>
+  <br>
+  <br>
   <section>
-    <p> Your your appointment with Id : {{ id }} is cancelled successfully. </p>
+    <h2> Your your appointment with Id : {{ id }} is cancelled successfully. </h2>
   </section>
   <section>
-    <h2> Your scheduled Appointments</h2>
+    <h3> Your scheduled Appointments</h3>
     {% if query|length == 0 %}
     <P> You haven't got any upcoming appointment with patients yet.</P>
     <p> Please wait for your patients to make their reservation.</p>

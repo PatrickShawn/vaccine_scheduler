@@ -5,22 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_home.css') }}">
 </head>
 <body>
   <section>
+    <br>
+    <br>
     <h1> Welcome to Vaccine Scheduler!</h1>
   </section>
+  <br>
   <section>
     <form class="form" action="/user", method="POST">
       <label for="username_input"> Username: </label>
       <input type="text" name="username" id="username_input" />
-      <br>
       <label for="password_input"> Password: </label>
       <input type="password" name="password" id="password_input" />
-      <br>
+
       <input type="checkbox" name="patient" id="patient_checkbox" />
       <label for="patient_checkbox"> Patient </label>
-
       <input type="checkbox" name="caregiver" id="caregiver_checkbox" />
       <label for="caregiver_checkbox"> Caregiver </label>
       <br>
@@ -28,8 +30,5 @@
 
     </form>
   </section>
-
-
-
 </body>
 </html>

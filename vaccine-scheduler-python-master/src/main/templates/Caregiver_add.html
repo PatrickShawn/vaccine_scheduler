@@ -5,22 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caregiver</title>
-</head>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Caregiver</p>
   </p>
+  <br>
+  <br>
   <section>
     {% if result == 0 %}
-    <p> Sorry you already have an assgiend appointment on {{ date }}.</p>
+    <h2> Sorry you already have an assgiend appointment on {{ date }}.</h2>
     {% elif result == 1 %}
-    <p> You already uploaded your avaliability on {{ date }}.</p>
+    <h2> You already uploaded your avaliability on {{ date }}.</h2>
     {% else %}
-    <p> Your uploaded avaliability is confirmed on {{ date }}</p>
+    <h2> Your uploaded avaliability is confirmed on {{ date }}</h2>
     <br>
-    <p> You may add your vaccine doses if you provide more doses with you
-      new avaliability</p>
+    <h3> You may add your vaccine doses if you provide more doses with you
+      new avaliability</h3>
     <form class="form" action="/user/upload/add_finish", method="POST">
       <label for="add_name"> Added vaccine name:
       </label>
@@ -41,9 +43,6 @@
       <br>
       <button type="submit"> Back to upload </button>
     </form>
-  </section>
-  <br>
-  <section>
     <form class="form" action="/", method="POST">
       <input type="hidden" name="logout" id="caregiver_logout" />
       <br>

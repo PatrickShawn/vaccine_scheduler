@@ -5,33 +5,38 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style_search.css') }}">
 </head>
 <body>
   <p>
     <h1> Hello, {{ username }}</h1>
     <p> Login as: Patient</p>
   </p>
+  <br>
+  <br>
   <section>
     {% if query_caregiver|length > 0%}
-    <p> Here are avaliable caregivers for your chosen date: {{ date }} </p>
+    <h3> Here are avaliable caregivers for your chosen date: {{ date }} </h3>
     <section>
       {% for entry in query_caregiver %}
       <p> {{ entry['Username'] }} </p>
       {% endfor %}
     </section>
     <section>
-      <p> Here are avaliable vaccine: </p>
+      <h3> Here are avaliable vaccine: </h3>
       {% for entry in query_vaccine %}
       <p> {{ entry['Name'] }} : {{ entry['Doses'] }} doses </p>
       {% endfor %}
     </section>
     <br>
     <form class="form" action="/user/search/reserve", method="POST">
+      <h2> Reserve your appointment</h2>
       <label for="vaccine_input"> Which vaccine would you like to have:</label>
       <input type="text" name="patient_vaccine" id="vaccine_input" />
       <br>
       <label for="caregiver_input"> Which caregiver would you like to meet:</label>
       <input type="text" name="patient_caregiver" id="caregiver_input" />
+      <br>
       <button type="submit"> Reserve </button>
     </form>
     {% else %}
