@@ -14,10 +14,15 @@ for i in Caregiver_list:
     token.insert(1, i)
     create_caregiver(token)
 
-Vaccine_dict = {'Pfizer' : 30, 'Moderna' : 40, 'Flu' : 50, 'Tdap' : 60, "Hepatitis_A": 10, "Hepatitis B": 10, "HPV" : 20, "MMR": 40, "Rabies" : 10, "Typhoid": 20}
+Vaccine_dict = {'Pfizer' : 30, 'Moderna' : 40, 'Flu' : 50, 'Tdap' : 60, "Hepatitis_A": 10,
+                "Hepatitis B": 10, "HPV" : 20, "MMR": 40, "Rabies" : 10, "Typhoid": 20}
 Avaliability_dict = {'CVS': ['6-1-2023', '6-2-2023', '6-3-2023'],
                      'Walgreen' : ['6-1-2023', '6-2-2023', '6-6-2023', '6-9-2023'],
-                     'MinuteClinic' : ['6-7-2023', '6-8-2023', '6-9-2023']}
+                     'MinuteClinic' : ['6-7-2023', '6-8-2023', '6-9-2023'],
+                     "Ann" : ['6-7-2023', '6-8-2023', '6-9-2023'],
+                     "Michael" : ['6-10-2023'], "Jannet" : ['6-10-2023'],
+                     "Maria" : ['6-11-2023'], "Sara" : ['6-9-2023', '6-11-2023'],
+                     "Kay" : ['6-15-2023'], "Penny" : ['6-14-2023']}
 # For each caregiver, upload their vaccine doses and avaliability.
 for cg in Caregiver_list:
     # First, login in as caregiver
