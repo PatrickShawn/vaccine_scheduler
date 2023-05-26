@@ -103,3 +103,5 @@ def caregiver_cancel():
             patient_query, caregiver_query,caregiver_aval = show_appointments("")
             return render_template("Caregiver_cancel.html", id=appoint_id, query=caregiver_query, username=username)
 
+if __name__ == "__main__":
+    app.run()
