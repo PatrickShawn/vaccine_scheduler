@@ -5,7 +5,7 @@
 This project can serve for two kinds of users: patients and caregivers.<br>
 For patients: our patients can login our system, search for caregiver's avaliability,
 and make or cancel reservation.<br>
-For caregivers: our caregivers can upload their avalibility and new doeses of vaccines (if have), 
+For caregivers: our caregivers can upload their avalibility and new doeses of vaccines (if have),
 check and cancel reservation.<br>
 Our database is hosted on Azure. You can access our database by VSCode connecting to Azure database.<br>
 
@@ -21,8 +21,8 @@ Enter the following commends into the Windows Git Bash terminal (preferred VSCod
 - Step 5: Run flask app with  `flask run` <br>
 - Step 6: Copy the URL link `http://127.0.0.1:5000` to your favourite browser and begin your adventure! <br>
 
-## Conda environment
-Please follow the link to install conda in your Windows system. <br>
+## Anaconda environment
+Please follow the link to install anaconda in your Windows system. <br>
 https://docs.anaconda.com/free/anaconda/install/windows/ <br>
 
 ## Azure Database

@@ -21,9 +21,9 @@
     {% else %}
     <h2> Your uploaded avaliability is confirmed on {{ date }}</h2>
     <br>
-    <h3> You may add your vaccine doses if you provide more doses with you
-      new avaliability</h3>
     <form class="form" action="/user/upload/add_finish", method="POST">
+      <h3> You may add your vaccine doses if you provide more doses with you
+        new avaliability</h3>
       <label for="add_name"> Added vaccine name:
       </label>
       <input type="text" name="vaccine" id="vaccine_name" />
