@@ -6,6 +6,7 @@ app = Flask(__name__)
 username = None
 date = None
 
+# endpoint for homepage
 @app.route("/", methods=["GET", "POST"])
 def home():
     global username
@@ -14,6 +15,7 @@ def home():
         username = None
     return render_template("Home.html")
 
+# endpoint for patient or caregiver utility page
 @app.route("/user", methods=["GET", "POST"])
 def patient_search():
     global username
@@ -34,6 +36,7 @@ def patient_search():
         if username is not None and username_exists_caregiver(username):
             return render_template("Caregiver_upload.html", username=username)
 
+# endpoint for patient appointments page
 @app.route("/user/appointments", methods=["GET", "POST"])
 def patient_appointments():
     if request.method == "POST":
@@ -41,6 +44,7 @@ def patient_appointments():
         patient_query, caregiver_query,caregiver_aval = show_appointments("")
         return render_template("Patient_appointments.html", username=username, query=patient_query)
 
+#endpoint for patient reservation page
 @app.route("/user/search/reserve", methods=["GET", "POST"])
 def patient_finish():
     if request.method == "POST":
@@ -52,6 +56,7 @@ def patient_finish():
         query_reserve = reserve(["", date, vaccine, caregiver])
         return render_template("Patient_finish.html", query_reserve=query_reserve, vaccine=vaccine, caregiver=caregiver, date=date, username=username)
 
+#endpoint for patient cancellation page
 @app.route("/user/appointments/cancel", methods=["GET", "POST"])
 def patient_cancel():
     if request.method == "POST":
@@ -60,6 +65,7 @@ def patient_cancel():
        patient_query, caregiver_query,caregiver_aval = show_appointments("")
        return render_template("Patient_cancel.html", id=appoint_id, query=patient_query, username=username)
 
+#endpoint for patient search availability page
 @app.route("/user/search", methods=["GET", "POST"])
 def patient_reserve():
     if request.method == "POST":
@@ -69,6 +75,7 @@ def patient_reserve():
         query_caregiver, query_vaccine = search_caregiver_schedule(["", date])
         return render_template("Patient_reserve.html", query_caregiver=query_caregiver, query_vaccine=query_vaccine, date=date, username=username)
 
+#endpoint for caregiver upload availability page
 @app.route("/user/upload", methods=["GET", "POST"])
 def caregiver_upload():
     if request.method == "POST":
@@ -78,6 +85,7 @@ def caregiver_upload():
         result = upload_availability(["", date])
         return render_template("Caregiver_add.html", date=date, username=username, result=result)
 
+#endpoint for caregiver add vaccine page
 @app.route("/user/upload/add_finish", methods=["GET", "POST"])
 def caregiver_add():
     if request.method == "POST":
@@ -87,6 +95,7 @@ def caregiver_add():
         query = add_doses(["", vaccine, doses])
         return render_template("Caregiver_finish.html", vaccine=vaccine, doses=doses, query=query, username=username, date=date)
 
+#endpoint for caregiver appointment page
 @app.route("/user/caregiver_appointments", methods=["GET", "POST"])
 def caregiver_appoints():
     if request.method == "POST":
@@ -94,6 +103,7 @@ def caregiver_appoints():
         patient_query,caregiver_query,caregiver_aval = show_appointments("")
         return render_template("Caregiver_appointments.html", username=username, query=caregiver_query, aval=caregiver_aval)
 
+#endpoint for caregiver cancellation page
 @app.route("/user/caregiver_cancel", methods=["GET", "POST"])
 def caregiver_cancel():
     if request.method == "POST":
@@ -103,5 +113,6 @@ def caregiver_cancel():
             patient_query, caregiver_query,caregiver_aval = show_appointments("")
             return render_template("Caregiver_cancel.html", id=appoint_id, query=caregiver_query, username=username)
 
+#run
 if __name__ == "__main__":
     app.run()
